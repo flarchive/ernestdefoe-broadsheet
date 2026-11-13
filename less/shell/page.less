@@ -1,0 +1,70 @@
+// ============================================================================
+// The page: newsprint ground, ruled sidebar.
+// ============================================================================
+
+// 🚨 Id weight: core's pre-paint style in <head> sets
+// `[data-theme^=dark] body` to its own dark grey, which beats a plain `body`.
+html:not(#bs) body {
+  background: var(--bs-paper);
+}
+
+// 🚨 Core's .Page-content is a flex child with min-width: auto, so it grows
+// to the widest thing inside it: one extension's wide card (Story Chain's,
+// on dev) pushed the whole page 170px past the window. It takes the space
+// that is left, and its content wraps inside it.
+.Page-container > .Page-content {
+  min-width: 0;
+}
+
+// Core's index sidebar keeps its job (start a discussion, the list's
+// filters, every extension's nav items and widget areas), set like the
+// paper's index column: condensed caps, no buttons-as-pills.
+@media @tablet-up {
+  .IndexPage .Page-sidebar,
+  .IndexPage-nav {
+    min-width: 0;
+  }
+
+  .IndexPage-nav .item-nav .Dropdown-menu > li > a,
+  .IndexPage-nav .item-nav .Dropdown-menu > li > .Button,
+  .IndexPage-nav .item-nav .Dropdown-menu > li > button {
+    font-family: var(--bs-sans);
+    font-size: 14px;
+    border-radius: 0;
+  }
+
+  .IndexPage-nav .item-nav .Dropdown-menu > li.active > a,
+  .IndexPage-nav .item-nav .Dropdown-menu > li > a.active {
+    color: var(--bs-ink);
+    font-weight: 600;
+  }
+}
+
+.IndexPage-newDiscussion,
+.DiscussionPage-nav .Button--primary,
+.Broadsheet-write {
+  font-family: var(--bs-sans);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 0;
+}
+
+// The toolbar above the list: the sort and the actions, square and quiet.
+.IndexPage-toolbar .Button {
+  font-family: var(--bs-sans);
+  border-radius: 0;
+}
+
+.Hero.Broadsheet-hero {
+  background: none;
+  color: var(--bs-ink);
+  padding: 0;
+  text-align: left;
+}
+
+// Core paints any .Hero with the hero colours; the front page sits on paper.
+.Broadsheet-hero .container {
+  padding-top: 0;
+  padding-bottom: 0;
+}

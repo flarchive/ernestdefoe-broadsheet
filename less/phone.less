@@ -1,0 +1,171 @@
+// ============================================================================
+// Phones. Core's own header (drawer, title, search) carries the name, so the
+// nameplate steps aside; the date line sits under it, the sections are tabs
+// that scroll sideways, and everything else stacks in one column.
+// ============================================================================
+
+@media @phone {
+  .Broadsheet-heroDate {
+    display: block;
+    border-bottom: 1px solid var(--bs-rule);
+  }
+
+  .Broadsheet-heroDate .Broadsheet-dateline {
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  // Core's phone header holds the list's own menu (All discussions,
+  // Following, Tags), so the paper's name sits under it, set smaller.
+  .Broadsheet-nameplate {
+    padding: 14px 16px 10px;
+  }
+
+  html:not(#bs) .Broadsheet-name {
+    font-size: 30px;
+  }
+
+  .Broadsheet-tagline {
+    display: none;
+  }
+
+  .Broadsheet-hero > .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .Broadsheet-front,
+  .Broadsheet-sectionHead {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .Broadsheet-sections {
+    border-top-width: 3px;
+  }
+
+  .Broadsheet-sectionList {
+    flex-wrap: nowrap;
+    gap: 22px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    padding: 0 16px;
+    width: 100%;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  html:not(#bs) .Broadsheet-section {
+    font-size: 13px;
+    padding: 11px 0;
+  }
+
+  // The header's compose button is core's on a phone.
+  .Broadsheet-write {
+    display: none;
+  }
+
+  .Broadsheet-top {
+    padding-top: 18px;
+    gap: 24px;
+  }
+
+  .Broadsheet-lead,
+  .Broadsheet-lead--picture {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'picture' 'kicker' 'title' 'text';
+  }
+
+  .Broadsheet-leadPicture {
+    margin-bottom: 14px;
+  }
+
+  html:not(#bs) .Broadsheet-leadTitle {
+    font-size: 32px;
+    line-height: 1.06;
+    margin: 6px 0 10px;
+  }
+
+  .Broadsheet-standfirst {
+    font-size: 17px;
+  }
+
+  .Broadsheet-columns {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: 20px;
+    padding-top: 0;
+    border-top: var(--bs-rule-double);
+  }
+
+  .Broadsheet-column {
+    padding: 16px 0;
+
+    + .Broadsheet-column {
+      border-left: 0;
+      border-top: 1px solid var(--bs-rule);
+    }
+  }
+
+  html:not(#bs) .Broadsheet-columnTitle {
+    font-size: 21px;
+    line-height: 1.18;
+    margin: 4px 0 6px;
+  }
+
+  html:not(#bs) .Broadsheet-sectionName {
+    font-size: 32px;
+  }
+
+  .Broadsheet-rest {
+    margin: 0 16px;
+  }
+
+  html:not(#bs) .DiscussionListItem-title {
+    font-size: 18px;
+  }
+
+  // -- The article ------------------------------------------------------------
+
+  html:not(#bs) .DiscussionHero .container {
+    padding-top: 20px;
+    padding-bottom: 12px;
+  }
+
+  html:not(#bs) .DiscussionHero-title {
+    font-size: 32px;
+    line-height: 1.06;
+    margin: 8px 0 12px;
+  }
+
+  .Broadsheet-articleByline .Avatar {
+    .Avatar--size(34px);
+  }
+
+  .PostStream-item[data-number='1'] .Post-body {
+    font-size: 18px;
+    line-height: 1.6;
+
+    > blockquote {
+      font-size: 22px;
+      margin: 20px 0;
+      padding: 14px 0;
+    }
+  }
+
+  .PostStream-item:not([data-number='1']) .Post-body {
+    font-size: 16px;
+  }
+
+  html:not(#bs) .Broadsheet-lettersTitle {
+    font-size: 22px;
+  }
+
+  .Broadsheet-letters {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}

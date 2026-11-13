@@ -1,0 +1,134 @@
+// ============================================================================
+// Tokens
+//
+// Broadsheet sets core's own LESS colour variables, so the whole forum (and
+// every extension that draws with core's custom properties) is printed on the
+// same paper with the same ink: --body-bg, --text-color, --control-bg and the
+// rest follow from these, in light, dark and both high-contrast modes.
+//
+// Its own colours are --bs-*, declared inside core's [data-theme^=light|dark]
+// blocks, never behind prefers-color-scheme: a reader's own choice of dark
+// mode (or "auto") is what turns the Night edition on.
+// ============================================================================
+
+// -- Day ---------------------------------------------------------------------
+@body-bg-light:               #F6F3EC;
+@text-color-light:            #161513;
+@heading-color-light:         #161513;
+@muted-color-light:           #5E5A52;
+@muted-more-color-light:      #8F887A;
+@control-bg-light:            #E9E3D6;
+@control-color-light:         #3A3731;
+@code-bg-light:               #ECE6DA;
+@code-color-light:            #2B2925;
+@overlay-bg-light:            fade(#161513, 70%);
+@header-bg-light:             #F6F3EC;
+@header-color-light:          #161513;
+@header-control-bg-light:     #E9E3D6;
+@header-control-color-light:  #3A3731;
+
+// -- Night -------------------------------------------------------------------
+@body-bg-dark:                #14130F;
+@text-color-dark:             #ECE6D9;
+@heading-color-dark:          #ECE6D9;
+@muted-color-dark:            #A39C8E;
+@muted-more-color-dark:       #77705F;
+@control-bg-dark:             #24221C;
+@control-color-dark:          #CFC8BA;
+@code-bg-dark:                #1E1C17;
+@code-color-dark:             #ECE6D9;
+@overlay-bg-dark:             fade(#000, 75%);
+@header-bg-dark:              #14130F;
+@header-color-dark:           #ECE6D9;
+@header-control-bg-dark:      #24221C;
+@header-control-color-dark:   #CFC8BA;
+
+// Titles in the list are ink, not core's half-faded grey: on newsprint the
+// headline is the darkest thing on the page.
+@discussion-title-color-light: #161513;
+@discussion-title-color-dark:  #ECE6D9;
+
+:root {
+  --container-hd:   1240px;
+  --container-xl:   1312px;
+  --container-xxl:  1312px;
+
+  --bs-rule-double: 3px double var(--bs-ink);
+}
+
+[data-theme^='light'] {
+  --bs-paper:      #F6F3EC;
+  --bs-paper-2:    #EFEADF;
+  --bs-plate:      #E7E1D3;
+  --bs-ink:        #161513;
+  --bs-ink-2:      #2B2925;
+  --bs-muted:      #5E5A52;
+  --bs-rule:       #D3CCBD;
+  --bs-rule-soft:  #DDD6C8;
+  --bs-accent:     @broadsheet-accent;
+  // A primary button is ink on paper, as the mockup's "Write a piece".
+  --bs-button:     #161513;
+  --bs-button-ink: #F6F3EC;
+}
+
+[data-theme^='dark'] {
+  --bs-paper:      #14130F;
+  --bs-paper-2:    #1A1914;
+  --bs-plate:      #1E1C17;
+  --bs-ink:        #ECE6D9;
+  --bs-ink-2:      #CFC8BA;
+  --bs-muted:      #A39C8E;
+  --bs-rule:       #34312A;
+  --bs-rule-soft:  #2C2A24;
+  // The accent, lifted for night reading: the day's red is too dark on ink.
+  --bs-accent:     mix(@broadsheet-accent, #ffffff, 50%);
+  --bs-button:     #ECE6D9;
+  --bs-button-ink: #14130F;
+}
+
+[data-theme='light-hc'] { --bs-ink: #000; --bs-ink-2: #000; --bs-muted: #3A3731; --bs-rule: #161513; }
+[data-theme='dark-hc']  { --bs-ink: #fff; --bs-ink-2: #fff; --bs-muted: #D5CFC2; --bs-rule: #ECE6D9; }
+
+// Core's primary buttons print in ink. Set through core's own button
+// variables, so every extension's primary button follows.
+[data-theme] {
+  --button-primary-bg: var(--bs-button);
+  --button-primary-bg-hover: var(--bs-ink-2);
+  --button-primary-bg-active: var(--bs-ink-2);
+  --button-primary-bg-disabled: var(--bs-muted);
+  --button-primary-color: var(--bs-button-ink);
+}
+
+// The typographic primitives every part of the theme uses.
+.bs-label() {
+  font-family: var(--bs-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.bs-meta() {
+  font-family: var(--bs-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--bs-muted);
+}
+
+// Flarum's "coloured header" option paints the header in the primary colour
+// with light text. A newspaper's header is printed on the page, so the
+// header stays paper and its text, icons and buttons stay ink: otherwise
+// they keep core's light "on colour" shade, pale grey on paper.
+html[data-colored-header='true'][data-theme] {
+  --header-bg: var(--bs-paper);
+  --header-color: var(--bs-ink);
+  --header-control-bg: var(--control-bg);
+  --header-control-color: var(--control-color);
+  --header-colored-color: var(--bs-ink);
+  --header-colored-control-color: var(--control-color);
+  --header-colored-control-bg: var(--control-bg);
+  --header-colored-control-bg-shaded: var(--control-bg-shaded);
+  --header-colored-control-bg-fadedin: var(--control-bg);
+}

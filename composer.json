@@ -1,0 +1,90 @@
+{
+    "name": "ernestdefoe/broadsheet",
+    "description": "Broadsheet — a newspaper front-page theme for Flarum 2. A nameplate, a section nav built from your tags, a lead story with three ruled columns, discussions that read like articles and a Night edition.",
+    "type": "flarum-extension",
+    "keywords": [
+        "flarum",
+        "flarum-extension",
+        "theme",
+        "newspaper",
+        "magazine",
+        "editorial",
+        "broadsheet"
+    ],
+    "homepage": "https://github.com/ernestdefoe/broadsheet",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ernestdefoe",
+            "email": "ernestdefoe@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^8.3",
+        "flarum/core": "^2.0"
+    },
+    "suggest": {
+        "flarum/tags": "The section nav, each story's section label and the section pages.",
+        "flarum/sticky": "A sticky discussion as the lead story.",
+        "flarum/likes": "The most-liked discussion as the lead story.",
+        "fof/upload": "Images attached with fof/upload are used as the lead story's picture.",
+        "fof/forum-widgets-core": "Place widgets (Homecoming, Latest Replies, Testimonials and others) around the front page."
+    },
+    "autoload": {
+        "psr-4": {
+            "ErnestDefoe\\Broadsheet\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ErnestDefoe\\Broadsheet\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Broadsheet",
+            "category": "theme",
+            "icon": {
+                "name": "fas fa-newspaper",
+                "backgroundColor": "#F6F3EC",
+                "color": "#161513"
+            }
+        }
+    },
+    "support": {
+        "issues": "https://github.com/ernestdefoe/broadsheet/issues",
+        "source": "https://github.com/ernestdefoe/broadsheet"
+    },
+    "require-dev": {
+        "flarum/likes": "^2.0",
+        "flarum/phpstan": "^2.0",
+        "flarum/sticky": "^2.0",
+        "flarum/tags": "^2.0",
+        "flarum/testing": "^2.0",
+        "laravel/pint": "^1.32"
+    },
+    "scripts": {
+        "test": [
+            "@test:unit",
+            "@test:integration"
+        ],
+        "test:integration": "phpunit -c tests/phpunit.integration.xml",
+        "test:setup": "@php tests/integration/setup.php",
+        "analyse:phpstan": "phpstan analyse",
+        "style": "pint --test",
+        "style:fix": "pint",
+        "test:unit": "phpunit -c tests/phpunit.unit.xml"
+    },
+    "scripts-descriptions": {
+        "test": "Runs all tests.",
+        "test:integration": "Runs all integration tests.",
+        "test:setup": "Sets up a database for use with integration tests. Execute this only once.",
+        "analyse:phpstan": "Run static analysis",
+        "test:unit": "Runs all unit tests."
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "beta",
+    "prefer-stable": true
+}
