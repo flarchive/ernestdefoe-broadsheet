@@ -1,0 +1,27 @@
+.BroadsheetAdmin-tagList {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  columns: 2 220px;
+  column-gap: 24px;
+
+  li {
+    break-inside: avoid;
+    margin-bottom: 4px;
+  }
+}
+
+.BroadsheetAdmin-child {
+  padding-left: 20px;
+}
+
+// A long choice ("The most-liked discussion from the last 30 days") would
+// otherwise push the select past the edge of a phone.
+.ernestdefoe-broadsheet-Page .Select {
+  max-width: 100%;
+
+  .Select-input {
+    max-width: 100%;
+    text-overflow: ellipsis;
+  }
+}
