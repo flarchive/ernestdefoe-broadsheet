@@ -1,0 +1,293 @@
+// ============================================================================
+// A discussion, set as an article: the headline and byline on paper, the
+// opening post in a large serif with a drop cap and its quotes pulled out,
+// the replies under a "Letters in reply" rule.
+//
+// 🚨 The opening post is found by its number (core stamps data-number on
+// every stream item). A discussion whose first post was deleted shows the
+// next one as plain prose, which is the right failure.
+// ============================================================================
+
+:root {
+  --discussion-content-max-width: 720px;
+}
+
+// -- The headline ------------------------------------------------------------
+
+// flarum/tags paints the hero in the tag's colour; on newsprint the section
+// is a label, and the headline sits on paper. Id weight beats a forum's own
+// CSS written for another theme's coloured hero.
+html:not(#bs) .DiscussionHero,
+html:not(#bs) .DiscussionHero--colored {
+  --hero-bg: transparent;
+  --hero-color: var(--bs-ink);
+  --contrast-color: var(--bs-ink);
+  background: none;
+  color: var(--bs-ink);
+  text-align: left;
+  // A forum's own CSS for another theme's hero (a card with a border and a
+  // shadow, on dev) must not box the headline in.
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+
+  .container {
+    max-width: calc(var(--discussion-content-max-width) + 300px);
+    padding-top: 36px;
+    padding-bottom: 18px;
+  }
+}
+
+// The section label and the badges (sticky, locked) share the top line;
+// the headline and the byline each take a line of their own.
+html:not(#bs) .DiscussionHero-items {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 12px;
+
+  > li {
+    display: block;
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  .item-tags {
+    order: -2;
+    flex: 0 1 auto;
+  }
+
+  .item-badges {
+    order: -1;
+    flex: 0 0 auto;
+
+    .badges {
+      margin: 0;
+    }
+  }
+}
+
+html:not(#bs) .DiscussionHero .TagsLabel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+
+html:not(#bs) .DiscussionHero .TagLabel {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  .bs-label();
+  --tag-color: var(--bs-accent);
+  color: var(--bs-accent) !important;
+
+  .TagLabel-text {
+    color: inherit;
+  }
+
+  .icon {
+    display: none;
+  }
+}
+
+html:not(#bs) .DiscussionHero-title {
+  display: block;
+  font-family: var(--bs-serif);
+  font-size: clamp(32px, 4.2vw, 54px);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.04;
+  color: var(--bs-ink);
+  margin: 12px 0 18px;
+  overflow-wrap: anywhere;
+}
+
+.Broadsheet-articleByline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--bs-ink);
+  border-bottom: 1px solid var(--bs-rule);
+
+  .Avatar {
+    .Avatar--size(40px);
+  }
+}
+
+// -- The page around it -------------------------------------------------------
+
+@media @tablet-up {
+  .DiscussionPage .container {
+    max-width: calc(var(--discussion-content-max-width) + 300px);
+  }
+}
+
+.DiscussionPage-nav {
+  .Button {
+    border-radius: 0;
+    font-family: var(--bs-sans);
+  }
+
+  .item-reply .Button--primary,
+  .SplitDropdown-button.Button--primary {
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+}
+
+.Scrubber {
+  font-family: var(--bs-sans);
+}
+
+.Scrubber-bar {
+  background: var(--bs-ink);
+  border-radius: 0;
+}
+
+// -- The opening post ---------------------------------------------------------
+
+.PostStream-item[data-number='1'] {
+  // The byline above says who wrote it: the post's own avatar and name
+  // would say it twice. Its other header items (edited, the time) stay.
+  .Post-side,
+  .Post-header .item-user,
+  .Post-header .PostUser {
+    display: none;
+  }
+
+  .Post-container {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .CommentPost {
+    min-height: 0;
+  }
+
+  .Post-body {
+    font-family: var(--bs-serif);
+    font-size: 20px;
+    line-height: 1.62;
+    color: var(--bs-ink-2);
+
+    // The first paragraph of prose, when nothing but pictures comes before
+    // it. 🚨 Not after anything another extension put first (Favorite
+    // Team's floated badge spacers, on the showcase): a later float cannot
+    // sit higher than an earlier one, so the letter dropped below them, and
+    // initial-letter overlapped the second line instead. Such a post simply
+    // has no drop cap.
+    > p:not(:has(img, iframe, video)):not(p:not(:has(img, iframe, video)) ~ p):not(:not(p) ~ p)::first-letter {
+      float: left;
+      font-size: 4.1em;
+      line-height: 0.8;
+      font-weight: 700;
+      padding: 0.1em 0.12em 0 0;
+      color: var(--bs-ink);
+    }
+
+    // A quote in the article is pulled out between rules, as on the page
+    // of a paper. Replies keep core's quote, which is someone's words in
+    // reply, not the writer's emphasis.
+    > blockquote {
+      margin: 30px 0;
+      padding: 18px 0;
+      border: 0;
+      border-top: 1px solid var(--bs-ink);
+      border-bottom: 1px solid var(--bs-ink);
+      background: none;
+      font-size: 28px;
+      line-height: 1.3;
+      font-style: italic;
+      text-align: center;
+      color: var(--bs-ink);
+
+      p {
+        margin: 0;
+      }
+    }
+
+    a {
+      color: var(--bs-accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+  }
+}
+
+// -- Letters in reply ---------------------------------------------------------
+
+.PostStream-afterFirstPost:has(.Broadsheet-letters) {
+  padding: 0;
+}
+
+.Broadsheet-letters {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  border-top: var(--bs-rule-double);
+  margin-top: 16px;
+  padding-top: 12px;
+}
+
+html:not(#bs) .Broadsheet-lettersTitle {
+  font-family: var(--bs-serif);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--bs-ink);
+  margin: 0;
+}
+
+.PostStream-item:not([data-number='1']) {
+  // Letters are set smaller than the article: a 40px portrait, not 64px.
+  --avatar-column-width: 56px;
+
+  @media @tablet-up {
+    .Post-side .Post-avatar {
+      .Avatar--size(40px);
+    }
+
+    .CommentPost:not(.Post--hidden) {
+      min-height: 0;
+    }
+  }
+
+  .CommentPost {
+    border-top: 1px solid var(--bs-rule);
+    border-radius: 0;
+  }
+
+  .Post-body {
+    font-family: var(--bs-serif);
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--bs-ink-2);
+  }
+}
+
+.PostUser-name,
+.Post-header {
+  font-family: var(--bs-sans);
+}
+
+html:not(#bs) .PostUser-name a,
+html:not(#bs) .PostUser-name .username {
+  color: var(--bs-ink);
+  font-weight: 600;
+}
+
+.Post-footer,
+.Post-actions {
+  font-family: var(--bs-sans);
+}
+
+.PostStream-timeGap span {
+  .bs-label();
+  font-size: 11px;
+}
+
+.ReplyPlaceholder {
+  border-radius: 0;
+  border-top: var(--bs-rule-double);
+}
