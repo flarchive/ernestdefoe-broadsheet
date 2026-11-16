@@ -1,0 +1,137 @@
+// ============================================================================
+// The discussion list — "the rest of the paper": ruled rows, serif
+// headlines, sections and bylines in condensed type.
+//
+// Core's markup throughout; only its look changes, so sorting, unread marks,
+// badges, the row menu and every extension's list items keep working.
+// ============================================================================
+
+.Broadsheet-rest {
+  margin: 0 0 4px;
+}
+
+.DiscussionList-discussions > li {
+  border-bottom: 1px solid var(--bs-rule-soft);
+}
+
+.DiscussionListItem {
+  border-radius: 0;
+}
+
+.DiscussionListItem-content {
+  align-items: baseline;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.DiscussionListItem-author-avatar .Avatar {
+  .Avatar--size(30px);
+}
+
+// 🚨 Id weight: a link-recolouring theme or a forum's own CSS would
+// otherwise turn every headline into a link colour.
+html:not(#bs) .DiscussionListItem-title {
+  font-family: var(--bs-serif);
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--bs-ink);
+  white-space: normal;
+
+  .DiscussionList:not(.DiscussionList--searchResults) .unread & {
+    font-weight: 700;
+  }
+
+  .DiscussionList:not(.DiscussionList--searchResults) .read & {
+    color: var(--bs-ink-2);
+  }
+}
+
+.DiscussionListItem:hover .DiscussionListItem-title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.DiscussionListItem-info {
+  font-family: var(--bs-sans);
+  font-size: 13px;
+  color: var(--bs-muted);
+  margin-top: 4px;
+
+  .username {
+    color: var(--bs-ink);
+    font-weight: 600;
+  }
+
+  .item-excerpt {
+    font-family: var(--bs-serif);
+    font-size: 15px;
+    color: var(--bs-ink-2);
+  }
+}
+
+// A section reads as a label, not as a coloured pill: its colour stays as a
+// small square before the name, so tags can still be told apart at a glance.
+.DiscussionListItem-info .TagLabel,
+.Broadsheet-hero .TagLabel {
+  // flarum/tags prints a coloured label's text in --tag-color with
+  // !important; on paper that colour is the paper itself.
+  --tag-color: var(--bs-muted);
+  background: none !important;
+  color: var(--bs-muted) !important;
+  padding: 0;
+  border-radius: 0;
+  .bs-label();
+  font-size: 11px;
+  letter-spacing: 0.08em;
+
+  &::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    margin-right: 5px;
+    vertical-align: 1px;
+    background: var(--tag-bg, var(--bs-muted));
+  }
+
+  .TagLabel-text {
+    color: inherit;
+  }
+
+  .icon {
+    display: none;
+  }
+}
+
+.DiscussionListItem-info .TagsLabel {
+  display: inline-flex;
+  gap: 10px;
+  margin-right: 8px;
+}
+
+.DiscussionListItem-count {
+  font-family: var(--bs-sans);
+  color: var(--bs-muted);
+}
+
+@media @tablet-up {
+  .DiscussionListItem:hover {
+    background: none;
+  }
+
+  .DiscussionListItem-stats-item {
+    font-family: var(--bs-sans);
+    font-size: 13px;
+    color: var(--bs-muted);
+  }
+}
+
+.DiscussionList-loadMore .Button,
+.DiscussionList-loadMore button {
+  font-family: var(--bs-sans);
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
