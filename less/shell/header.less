@@ -1,0 +1,88 @@
+// ============================================================================
+// The header: a thin rule-bottomed strip, the paper's name in serif.
+//
+// On the discussion list it carries the date line (the nameplate below it
+// carries the name, so the header's title steps aside on wide screens); on
+// every other page the name and the sections.
+// ============================================================================
+
+.App-header {
+  background: var(--bs-paper);
+  border-bottom: 1px solid var(--bs-rule);
+  box-shadow: none;
+}
+
+// 🚨 html:not(#bs) is id weight: themes (and forums' custom CSS) recolour
+// header links and headings with selectors that beat two classes.
+html:not(#bs) .Header-title {
+  font-family: var(--bs-serif);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+
+  a,
+  a:hover {
+    color: var(--bs-ink);
+    text-decoration: none;
+  }
+}
+
+.Broadsheet-dateline {
+  .bs-meta();
+  white-space: nowrap;
+}
+
+.Broadsheet-edition {
+  color: var(--bs-accent);
+  font-weight: 600;
+}
+
+#header-primary .item-broadsheetDateline {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.Broadsheet-headerSections {
+  display: flex;
+  gap: 22px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  html:not(#bs) & a {
+    .bs-label();
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--bs-ink);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--bs-accent);
+    }
+  }
+}
+
+@media @tablet-up {
+  // The nameplate is the name on the list's pages: the header's copy of it
+  // would be the same words twice, one above the other.
+  .App--index .Header-title {
+    display: none;
+  }
+
+  #header-secondary .Search-input input,
+  #header-secondary .Search-input .FormControl {
+    background: transparent;
+    border-radius: 0;
+    border-bottom: 1px solid var(--bs-rule);
+  }
+}
+
+// Sections in the header only where there is room for them beside the
+// search and the account menu.
+@media (max-width: 1099px) {
+  #header-primary .item-broadsheetSections {
+    display: none;
+  }
+}
